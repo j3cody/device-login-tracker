@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login Device Tracker</title>
+</head>
+
+<body>
+
+<h2>Device Login Tracker</h2>
+
+<button onclick="login()">Login</button>
+
+<h3>Login Sessions</h3>
+<ul id="sessions"></ul>
+
+<script>
+
+async function login() {
+
+    await fetch("/login", { method: "POST" });
+
+    loadSessions();
+}
+
+async function loadSessions() {
+
+    const res = await fetch("/sessions");
+
+    const data = await res.json();
+
+    let list = document.getElementById("sessions");
+
+    list.innerHTML = "";
+
+    data.forEach(s => {
+
+        let li = document.createElement("li");
+
+        li.innerHTML =
+            s.device + " | " +
+            s.browser + " | " +
+            s.os + " | " +
+            s.time;
+
+        list.appendChild(li);
+    });
+}
+
+loadSessions();
+
+</script>
+
+</body>
+</html>
