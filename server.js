@@ -32,7 +32,9 @@ app.post("/login", (req, res) => {
         device: getDevice(ua),
         browser: agent.toAgent(),
         os: agent.os.toString(),
-        time: new Date().toLocaleString()
+        time: new Date().toLocaleString("en-IN", {
+                timeZone: "Asia/Kolkata"
+            })
     };
 
     sessions.push(session);
